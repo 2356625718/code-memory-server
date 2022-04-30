@@ -20,9 +20,10 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
     "koa2-cors": "^2.0.6",
+    "moment": "^2.29.3",
     "mysql2": "^2.3.3",
     "pug": "^2.0.3",
-    "sequelize": "^6.17.0",
+    "sequelize": "^6.19.0",
     "sequelize-automate-gm": "^1.0.2"
   },
   "devDependencies": {

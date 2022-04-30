@@ -72,5 +72,19 @@ module.exports = {
       }
     })
     return res.dataValues
-  }
+  },
+  // 更新用户头像
+  updateImg: async (info) => {
+    const { id, img } = info
+    await User.update({
+      img,
+    }, {
+      where: {
+        id
+      }
+    })
+    return {
+      status: true
+    }
+  },
 }

@@ -12,5 +12,10 @@ router.post('/register', async (ctx, next) => {
   const res = await service.user.addUser(ctx.request.body)
   ctx.body = res
 })
+// 更新用户头像
+router.post('/updateImg', async (ctx, next) => {
+  const res = await service.user.updateImg(ctx.request.body)
+  ctx.body = res
+})
 
 module.exports = router

@@ -28,6 +28,15 @@ const attributes = {
     comment: '',
     field: 'userName'
   },
+  img: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    defaultValue: null,
+    primaryKey: false,
+    autoIncrement: false,
+    comment: '',
+    field: 'img'
+  },
   phone: {
     type: DataTypes.STRING(255),
     allowNull: false,
@@ -46,24 +55,6 @@ const attributes = {
     comment: '',
     field: 'password'
   },
-  createdAt: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'createdAt'
-  },
-  updatedAt: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'updatedAt'
-  }
 };
 const options = {
   modelName: 'users',

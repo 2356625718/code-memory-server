@@ -15,7 +15,7 @@ const attributes = {
     allowNull: false,
     defaultValue: null,
     primaryKey: true,
-    autoIncrement: false,
+    autoIncrement: true,
     comment: '',
     field: 'id'
   },
@@ -31,15 +31,6 @@ const attributes = {
       key: 'id',
       model: 'users_model'
     }
-  },
-  userName: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'userName'
   },
   description: {
     type: DataTypes.STRING(255),
@@ -86,24 +77,6 @@ const attributes = {
     comment: '',
     field: 'talk'
   },
-  createdAt: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'createdAt'
-  },
-  updatedAt: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'updatedAt'
-  }
 };
 const options = {
   modelName: 'community_codes',

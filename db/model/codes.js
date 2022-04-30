@@ -11,11 +11,11 @@ class Codes extends Model {}
 
 const attributes = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(255),
     allowNull: false,
     defaultValue: null,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: false,
     comment: '',
     field: 'id'
   },
@@ -37,6 +37,15 @@ const attributes = {
     comment: '',
     field: 'title'
   },
+  description: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    defaultValue: null,
+    primaryKey: false,
+    autoIncrement: false,
+    comment: '',
+    field: 'description'
+  },
   content: {
     type: DataTypes.TEXT,
     allowNull: false,
@@ -46,24 +55,6 @@ const attributes = {
     comment: '',
     field: 'content'
   },
-  createdAt: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'createdAt'
-  },
-  updatedAt: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    defaultValue: null,
-    primaryKey: false,
-    autoIncrement: false,
-    comment: '',
-    field: 'updatedAt'
-  }
 };
 const options = {
   modelName: 'codes',

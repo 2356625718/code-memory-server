@@ -1,7 +1,7 @@
 const community = require('../db/model/community_codes')
 const communityActions = require('../db/model/community_actions')
 const communityTalks = require('../db/model/community_talks')
-const code = require('../db/model/codes')
+const user = require('../db/model/users')
 const userService = require('./user')
 
 module.exports = {
@@ -21,6 +21,15 @@ module.exports = {
       }
     })
     let list = res
+    for (let item of list) {
+      let data = await user.findOne({
+        where: {
+          id: item.userId
+        }
+      })
+      item.dataValues.userName = data.dataValues.userName
+      item.dataValues.img = data.dataValues.img
+    }
     let len = res.length
     let collectArray = []
     if (res) {
@@ -50,10 +59,10 @@ module.exports = {
               if (item2.type === 2) {
                 if (list[index].dataValues.talkAction) {
                   list[index].dataValues.talkAction.push(res2[index2].content)
-                  list[index].dataValues.collectActionNumber += 1
+                  list[index].dataValues.talkActionNumber += 1
                 } else {
                   list[index].dataValues.talkAction = [res2[index2].content]
-                  list[index].dataValues.collectActionNumber += 1
+                  list[index].dataValues.talkActionNumber += 1
                 }
               }
             }
@@ -64,7 +73,7 @@ module.exports = {
     return {
       status: true,
       data: {
-        list,
+        list: list.reverse(),
         len,
         collectArray
       }
@@ -142,9 +151,12 @@ module.exports = {
       }
     })
     let res = []
+    // hash表
     let map = new Map()
     for (let item of data) {
+      // 层级为1
       if (item.dataValues.deep === 1) {
+        // 数据查询
         item.dataValues.userInfo = await userService.getUserInfo(item.userId)
         res.push(item.dataValues)
         map.set(item.dataValues.id, res.length - 1)
@@ -152,6 +164,7 @@ module.exports = {
     }
     for (let item of data) {
       if (item.dataValues.deep === 2) {
+        // 层级为2
         if (res[map.get(item.dataValues.replyToId)].hasOwnProperty('child')) {
           item.dataValues.userInfo = await userService.getUserInfo(item.userId)
           res[map.get(item.dataValues.replyToId)].child.push(item.dataValues)
@@ -165,13 +178,18 @@ module.exports = {
     }
     return {
       status: true,
-      data: res
+      data: res.reverse()
     }
   },
 
   // 回复文章或回复用户
   doTalk: async (info) => {
     const { content, userId, codeId, deep, replyToId } = info
+    await communityActions.create({
+      userId,
+      codeId,
+      type: 2,
+    })
     await communityTalks.create({
       ...info
     })
@@ -182,8 +200,8 @@ module.exports = {
 
   // 分享文章
   shareCode: async (info) => {
-    const { userId, title, content, introduce } = info
-    await code.create({
+    const { userId, description, code } = info
+    await community.create({
       ...info
     })
     return {
